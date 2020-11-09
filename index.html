@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slider Vue</title>
+    <title>Vue Slideshow</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css'/>
     <link rel="stylesheet" href="css/style.css">
     <!-- Include Vue -->
@@ -11,24 +11,23 @@
 </head>
 <body>
     <div id="app">
-        <div class="slider">
-            <div class="prev">
+        <div class="slider" @mouseenter="stopLoop" @mouseleave="startLoop" @keyup.arrow-left="prevPhoto" @keyup.arrow-right="nextPhoto" tabindex="0">
+            <div class="prev" @click="prevPhoto">
                 <i class="fas fa-arrow-left"></i>
             </div>
 
             <div class="images">
-                <img src="" alt="photo lorem">
+                <img :src="photos[indexPhoto]" alt="photo lorem">
             </div>
     
-            <div class="next">
+            <div class="next" @click="nextPhoto">
                 <i class="fas fa-arrow-right"></i>
             </div>
     
             <div class="nav">
-                <i class="fas fa-circle"></i>
+                <i v-for="(photo, index) in photos" :class="['fas fa-circle', index == indexPhoto ? 'active' : '']" @click="setPhoto(index)"></i>
             </div>
         </div>
-
     </div>
     
     <!-- INCLUDE JS -->
